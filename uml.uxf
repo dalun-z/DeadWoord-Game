@@ -1,0 +1,83 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>80</x><y>507</y><w>210</w><h>260</h></coordinates><panel_attributes>_:Player_
+--
+-id: int
+-rank: int
+-credits: int
+-dollars: int
+-currentRole: Role
+-acting: boolean
+-location: Location {default: Trailer}
+--
+#Act(): void
+#Move(): void
+#TakeRole(): void
+#Reharse(): void
+#getPossibleMoves(): Location[]
+#getPossibleRoles(): Role[]
+#upgradeRank(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>177</y><w>240</w><h>170</h></coordinates><panel_attributes>_:BoardView_
+--
+-locations: Location[]
+-players: Player[]
+--
+#getPlayerCount(): int
+#movePlayer(Player p, Location l): void
+#rollDice(): void
+#showScene(Location l): void
+#updateShots(Location l): void
+#updateRank(Player p, int rank): void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>237</y><w>280</w><h>290</h></coordinates><panel_attributes>lt=-
+m1=2..8
+m2=1</panel_attributes><additional_attributes>10;270;10;10;260;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>700</x><y>417</y><w>210</w><h>130</h></coordinates><panel_attributes>_Scene_
+--
+-shotCounter: int
+-starringRoles: Role[]
+--
+#getRoles(): Role[]
+#decrementShots(): void
+#wrap(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>630</x><y>217</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>720</x><y>217</y><w>210</w><h>150</h></coordinates><panel_attributes>_Location_
+--
+-extraRoles: Role[]
+-revealed: boolean
+-connectedLocations: Location[]
+--
+#getRoles(): Role[]
+#getConnectedLocations: Location[]
+#isRevealed(): boolean
+#revealScene(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>820</x><y>357</y><w>40</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>397</y><w>210</w><h>160</h></coordinates><panel_attributes>_Role_
+--
+-rank: int
+-complete: boolean
+-reharsalCounter: int
+-player: Player
+--
+#getRank(): int
+#isComplete(): boolean
+#setComplete(): Reward</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>447</y><w>120</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1..4</panel_attributes><additional_attributes>100;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>467</y><w>180</w><h>60</h></coordinates><panel_attributes>lt=&lt;-
+m2=1</panel_attributes><additional_attributes>10;40;10;10;160;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>170</x><y>337</y><w>210</w><h>70</h></coordinates><panel_attributes>_Reward_
+--
+-type: String
+-value: int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>370</x><y>367</y><w>160</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m2=1</panel_attributes><additional_attributes>10;10;130;10;130;30</additional_attributes></element><element><id>UMLClass</id><coordinates><x>320</x><y>607</y><w>170</w><h>50</h></coordinates><panel_attributes>_ExtraRole_
+--
+#setComplete(): Reward[]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>510</x><y>607</y><w>210</w><h>50</h></coordinates><panel_attributes>_StarringRole_
+--
+#setComplete(): Reward("credits", 2)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>547</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>547</y><w>30</w><h>80</h></coordinates><panel_attributes>lt=&lt;-
+</panel_attributes><additional_attributes>10;10;10;60</additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>297</y><w>140</w><h>70</h></coordinates><panel_attributes>_:DiceRoller_
+--
+-value: int
+--
+#roll(): int</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>60</x><y>217</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>397</y><w>40</w><h>130</h></coordinates><panel_attributes>lt=&lt;-
+m2=1</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>47</y><w>240</w><h>180</h></coordinates><panel_attributes>_:Deadwood_
+--
+-boardView: BoardView
+-players: Player[]
+-diceRoller: DiceRoller
+-day: int
+--
+#setup(int playerCount): void
+#tallyScores(): void
+#movePlayer(Player p, Location l): void
+#nextDay(): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>280</x><y>177</y><w>140</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>120;10;10;10</additional_attributes></element></diagram>
