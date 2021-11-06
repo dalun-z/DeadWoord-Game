@@ -74,7 +74,7 @@ public class BoardView implements MouseListener {
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
         controlPanel.add(showPlayerInfo(4, "Trailer", 2, 3, "dice_y1.png"));
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(5, "Trailer", 2, 3, "dice_w1.png"));
+        controlPanel.add(showPlayerInfo(5, "Trailer", 2, 3, "dice_g1.png"));
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
 
 

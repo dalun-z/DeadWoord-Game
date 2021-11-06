@@ -17,14 +17,14 @@ public class SetView {
 
     public void drawSet() {
 
-        card = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/cardback.png").getPath().replace("%20", " ")));
+        card = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/card_01.png").getPath().replace("%20", " ")));
         card.setLocation(21, 69); // x,y values from board.xml, set name "Train Station", area element
         card.setSize(205, 115); // height and width from board.xml, set name "Train Station", area element
         board.add(card);
 
         // sample code showing how to place player dice on a role
         // Role 1 is Crusty Prospector
-        role1 = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/dice_b1.png").getPath().replace("%20", " ")));
+        role1 = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/dice_g3.png").getPath().replace("%20", " ")));
         role1.setLocation(114, 227); // x,y values from board.xml, set name "Train Station", part Crusty Prospector
         role1.setSize(46, 46); // height and width from board.xml, set name "Train Station", part Crusty Prospector
         board.add(role1);
