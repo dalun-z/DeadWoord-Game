@@ -27,9 +27,19 @@ public class test{
                 Scanner userinput = new Scanner(System.in);
                 String userSelection = userinput.nextLine();
 
-                // interaction panel
-                // switch would be press different button
-                // ask player what they want to do
+    
+                /*
+                    * interaction panel
+                    * switch would be press different button
+                    * ask player what they want to do
+
+                    ? On which step should implement role dice action?
+                    ? should we calculate the score in this switch statement?
+                    ? How to parse JPanel.butoon function to this class?
+    
+                    TODO : Maybe add another switch inside specific case
+                    TODO : Replace each case with JPanel.button feature
+                */
                 switch(userSelection){
                     // m for move
                     // call move / press move button
@@ -41,8 +51,15 @@ public class test{
 
                     // t for take a role
                     // call role / press role button
-                    case "t" : break;
+                    case "t" : 
+                        /*
+                            TODO : call Role class
+                        */
+                        break;
 
+                    default :
+                        System.out.println("Invaild input");
+                        break;
                 }
             }
         }
