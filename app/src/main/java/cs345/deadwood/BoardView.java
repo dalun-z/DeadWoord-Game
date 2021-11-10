@@ -127,12 +127,32 @@ public class BoardView implements MouseListener {
         panelTitle.setFont(new Font("TimesRoman", Font.BOLD, 18));
         movePanel.add(panelTitle);
 
-        JTextArea comment = new JTextArea("Player interaction space. Use buttons or other UI to ask what the player wants to do, show valid moves.");
-        comment.setLineWrap(true);
-        comment.setPreferredSize(movePanel.getPreferredSize());
-        movePanel.add(comment);
+        // JTextArea comment = new JTextArea("Player interaction space. Use buttons or other UI to ask what the player wants to do, show valid moves.");
+        // comment.setLineWrap(true);
+        // comment.setPreferredSize(movePanel.getPreferredSize());
+        //movePanel.add(comment);
+
+        //movePanel = new JPanel(new GridLayout(1,3));
+
+        JLabel opt = new JLabel();
+        opt.setFont(new Font("TimesRoman", Font.BOLD, 18));
+        opt.add(panelTitle);
+
+        JButton move = new JButton();
+        //move.addActionListener(new clickButtonListener());
+        move.setText("Move");
+        movePanel.add(move);
+
+        JButton pass = new JButton();
+        pass.setText("Pass");
+        movePanel.add(pass);
+
+        JButton role = new JButton();
+        role.setText("Take a role");
+        movePanel.add(role);
 
         return movePanel;
+
     }
 
 
