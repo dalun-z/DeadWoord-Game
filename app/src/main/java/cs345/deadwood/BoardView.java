@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import java.net.URL;
 
 
@@ -27,6 +28,8 @@ public class BoardView implements MouseListener {
         SetView trainStation = new SetView(frame);
         trainStation.drawSet();
 
+        Deck deck = new Deck();
+        deck.init();
 
         URL boardImg = getClass().getClassLoader().getResource("img/board.png");
         JLabel board = new JLabel(new ImageIcon(boardImg.getPath().replace("%20", " ")));
