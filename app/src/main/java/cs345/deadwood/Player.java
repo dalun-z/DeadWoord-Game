@@ -13,6 +13,7 @@ public class Player {
     private int dollars;
     private Role role;
     private boolean acting;
+    private Location location;
 
 
     public void act() {

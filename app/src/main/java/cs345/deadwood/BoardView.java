@@ -23,6 +23,7 @@ public class BoardView implements MouseListener {
         // Set layout to null, so we can place widgets based on x-y coordinates.
         frame.setLayout(null);
 
+        // TODO: set locations for players programmatically (instead of this)
         SetView trainStation = new SetView(frame);
         trainStation.drawSet();
 
@@ -65,6 +66,8 @@ public class BoardView implements MouseListener {
         controlPanel.add(playerInfoLabel);
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
 
+        // TODO: pull player data from Player class instances
+        //TODO: (optional) implement support for different player counts
         // Show players
         controlPanel.add(showPlayerInfo(1, "Train Station", 2, 3, "dice_b1.png"));
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
@@ -127,10 +130,30 @@ public class BoardView implements MouseListener {
         panelTitle.setFont(new Font("TimesRoman", Font.BOLD, 18));
         movePanel.add(panelTitle);
 
-        JTextArea comment = new JTextArea("Player interaction space. Use buttons or other UI to ask what the player wants to do, show valid moves.");
-        comment.setLineWrap(true);
-        comment.setPreferredSize(movePanel.getPreferredSize());
-        movePanel.add(comment);
+        // JTextArea comment = new JTextArea("Player interaction space. Use buttons or other UI to ask what the player wants to do, show valid moves.");
+        // comment.setLineWrap(true);
+        // comment.setPreferredSize(movePanel.getPreferredSize());
+        // movePanel.add(comment);
+
+        JPanel interactArea = new JPanel();
+        interactArea.setPreferredSize(movePanel.getPreferredSize());
+        
+        JButton moveButton = new JButton();
+        JLabel moveButtonLabel = new JLabel("Move");
+        moveButton.add(moveButtonLabel);
+        interactArea.add(moveButton);
+        
+        JButton passButton = new JButton();
+        JLabel passButtonLabel = new JLabel("Pass");
+        passButton.add(passButtonLabel);
+        interactArea.add(passButton);
+        
+        JButton actButton = new JButton();
+        JLabel actButtonLabel = new JLabel("Act");
+        actButton.add(actButtonLabel);
+        interactArea.add(actButton);
+
+        movePanel.add(interactArea);
 
         return movePanel;
     }

@@ -34,6 +34,5 @@ public class SetView {
         shotIcon.setLocation(141, 11); // x,y values from board.xml, set name "Train Station", take 1
         shotIcon.setSize(47, 47); // height and width from board.xml, set name "Train Station", take 1
         board.add(shotIcon);
-
     }
 }
