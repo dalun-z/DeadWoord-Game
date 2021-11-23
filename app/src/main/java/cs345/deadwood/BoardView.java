@@ -13,6 +13,7 @@ public class BoardView implements MouseListener {
     private JFrame frame;
     private final int VERTICAL_PADDING = 5;
     private final int HORIZONTAL_PADDING = 5;
+    private Deck deck;
 
     public void init() {
         frame = new JFrame();
