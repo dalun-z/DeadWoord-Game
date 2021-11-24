@@ -15,7 +15,7 @@ public class LaunchPage implements ActionListener{
     JButton button = new JButton("Enter");
     JLabel label = new JLabel("Number of Player");
     JTextField enterNum = new JTextField(20);
-
+    
     LaunchPage(){
 
         button.setBounds(100, 160, 200, 40);
@@ -23,7 +23,8 @@ public class LaunchPage implements ActionListener{
         button.addActionListener(this);
 
         label.setLabelFor(enterNum);
-        
+    
+        enterNum.setSize(150, 40);
 
         frame.add(label);
         frame.add(enterNum);
