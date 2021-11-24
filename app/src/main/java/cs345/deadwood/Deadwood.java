@@ -4,9 +4,10 @@
 package cs345.deadwood;
 
 public class Deadwood {
-
+    
     public static void main(String[] args) {
-        BoardView view = new BoardView();
-        view.init();
+        // BoardView view = new BoardView();
+        // view.init();
+        LaunchPage launchPage = new LaunchPage();
     }
 }

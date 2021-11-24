@@ -8,7 +8,7 @@ public class Dice {
     *   
     */
 
-    private int value;
+    private static int value;
 
 
     /*
@@ -17,7 +17,7 @@ public class Dice {
     */
 
     public int roll() {
-        value = (int) Math.floor((Math.random() + 1) * 6);
+        value = (int) Math.floor((Math.random() * 6)  + 1);
         return value;
     }
 
