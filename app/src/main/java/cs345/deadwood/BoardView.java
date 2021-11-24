@@ -66,15 +66,15 @@ public class BoardView implements MouseListener {
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
 
         // Show players
-        controlPanel.add(showPlayerInfo(1, "Train Station", 2, 3, "dice_b1.png"));
+        controlPanel.add(showPlayerInfo(1, "Train Station", 2, 3, "b"));
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(2, "Trailer", 2, 3, "dice_r1.png"));
+        controlPanel.add(showPlayerInfo(2, "Trailer", 2, 3, "r"));
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(3, "Trailer", 2, 3, "dice_p1.png"));
+        controlPanel.add(showPlayerInfo(3, "Trailer", 2, 3, "p"));
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(4, "Trailer", 2, 3, "dice_y1.png"));
+        controlPanel.add(showPlayerInfo(4, "Trailer", 2, 3, "y"));
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(5, "Trailer", 2, 3, "dice_w1.png"));
+        controlPanel.add(showPlayerInfo(5, "Trailer", 2, 3, "w"));
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
 
 
@@ -96,23 +96,24 @@ public class BoardView implements MouseListener {
     }
 
     private JPanel showPlayerInfo(int i, String area, int cash, int credit, String dice) {
-        
+        Player player = new Player(i, area, cash, credit, dice);
+
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300 - HORIZONTAL_PADDING*2, 50));
         panel.setLayout(new BoxLayout(panel, BoxLayout.LINE_AXIS));
 
-        panel.add(new JLabel("Player " + i + ": "));
+        panel.add(new JLabel("Player " + player.getPlayer() + ": "));
         panel.add(Box.createRigidArea(new Dimension(HORIZONTAL_PADDING,0))); // Add padding
 
-        JLabel playerDice= new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/" + dice).getPath().replace("%20", " ")));
+        JLabel playerDice= new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/" + player.getDice()).getPath().replace("%20", " ")));
         panel.add(playerDice);
         panel.add(Box.createRigidArea(new Dimension(HORIZONTAL_PADDING,0))); // Add padding
 
-        JLabel playerLocation = new JLabel(area);
+        JLabel playerLocation = new JLabel(player.getArea());
         panel.add(playerLocation);
         panel.add(Box.createRigidArea(new Dimension(HORIZONTAL_PADDING,0))); // Add padding
 
-        JLabel money = new JLabel("$" + cash + " C" + credit); // 2 dollars and 3 credits.
+        JLabel money = new JLabel("$" + player.getCash() + " C" + player.getCredit()); // 2 dollars and 3 credits.
         panel.add(money);
         panel.add(Box.createRigidArea(new Dimension(HORIZONTAL_PADDING,0))); // Add padding
 
@@ -127,29 +128,21 @@ public class BoardView implements MouseListener {
         panelTitle.setFont(new Font("TimesRoman", Font.BOLD, 18));
         movePanel.add(panelTitle);
 
-        // JTextArea comment = new JTextArea("Player interaction space. Use buttons or other UI to ask what the player wants to do, show valid moves.");
-        // comment.setLineWrap(true);
-        // comment.setPreferredSize(movePanel.getPreferredSize());
-        //movePanel.add(comment);
+        JPanel buttonpabel = new JPanel(new FlowLayout());
+        
+        JButton moveButton = new JButton("Move");
+        //moveButton.addActionListener(new clickButtonListener());
+        buttonpabel.add(moveButton);
+        
+        JButton passButton = new JButton("Pass");
+        //passButton.addActionListener(new clickButtonListener());
+        buttonpabel.add(passButton);
+        
+        JButton actButton = new JButton("Act");
+        //actButton.addActionListener(new clickButtonListener());
+        buttonpabel.add(actButton);
 
-        //movePanel = new JPanel(new GridLayout(1,3));
-
-        JLabel opt = new JLabel();
-        opt.setFont(new Font("TimesRoman", Font.BOLD, 18));
-        opt.add(panelTitle);
-
-        JButton move = new JButton();
-        //move.addActionListener(new clickButtonListener());
-        move.setText("Move");
-        movePanel.add(move);
-
-        JButton pass = new JButton();
-        pass.setText("Pass");
-        movePanel.add(pass);
-
-        JButton role = new JButton();
-        role.setText("Take a role");
-        movePanel.add(role);
+        movePanel.add(buttonpabel);
 
         return movePanel;
 
