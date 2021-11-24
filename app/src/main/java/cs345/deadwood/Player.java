@@ -16,13 +16,13 @@ public class Player {
     private String dice;
     private int rank;
 
-    public Player(int player, String area, int cash, int credit, String dice){
+    public Player(int player, String area, int cash, int credit, String dice, int rank){
         this.player = player;
         this.area = area;
         this.cash = cash;
         this.credit = credit;
         this.dice = dice; 
-        this.rank = 1;
+        this.rank = rank;
     }
 
     public void setArea(String area){

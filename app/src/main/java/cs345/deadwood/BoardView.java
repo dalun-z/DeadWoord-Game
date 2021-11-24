@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class BoardView implements MouseListener {
@@ -15,7 +16,9 @@ public class BoardView implements MouseListener {
     private final int HORIZONTAL_PADDING = 5;
     private Deck deck;
 
-    public void init() {
+    ArrayList<Player> players = new ArrayList<Player>();
+
+    public void init(int n) {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1500, 930));
@@ -29,8 +32,20 @@ public class BoardView implements MouseListener {
         SetView trainStation = new SetView(frame);
         trainStation.drawSet();
 
-        Deck deck = new Deck();
-        deck.init();
+        String[] diceColor = {"r", "b", "y", "c", "g", "o", "p", "v", "w"};
+
+        for(int i = 1; i <= n; i++){
+            if(n == 5){
+                players.add(new Player(i, "Trailer", 0, 2, diceColor[i], 1));
+            }else if(n == 6){
+                players.add(new Player(i, "Trailer", 0, 4, diceColor[i], 1));
+            }else if(n==7 || n==8){
+                players.add(new Player(i, "Trailer", 0, 0, diceColor[i], 2));
+            }else{
+                players.add(new Player(i, "Trailer", 0, 0, diceColor[i], 1));
+            }
+        }
+
 
         URL boardImg = getClass().getClassLoader().getResource("img/board.png");
         JLabel board = new JLabel(new ImageIcon(boardImg.getPath().replace("%20", " ")));
@@ -73,17 +88,10 @@ public class BoardView implements MouseListener {
         // TODO: pull player data from Player class instances
         //TODO: (optional) implement support for different player counts
         // Show players
-        controlPanel.add(showPlayerInfo(1, "Train Station", 2, 3, "b"));
-        controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(2, "Trailer", 2, 3, "r"));
-        controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(3, "Trailer", 2, 3, "p"));
-        controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(4, "Trailer", 2, 3, "y"));
-        controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-        controlPanel.add(showPlayerInfo(5, "Trailer", 2, 3, "w"));
-        controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
-
+        for(int i = 0; i < players.size(); i++){
+            Player p = players.get(i);
+            controlPanel.add(showPlayerInfo(p));
+        }
 
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
 
@@ -102,8 +110,7 @@ public class BoardView implements MouseListener {
         return controlPanel;
     }
 
-    private JPanel showPlayerInfo(int i, String area, int cash, int credit, String dice) {
-        Player player = new Player(i, area, cash, credit, dice);
+    private JPanel showPlayerInfo(Player player) {
 
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300 - HORIZONTAL_PADDING*2, 50));
