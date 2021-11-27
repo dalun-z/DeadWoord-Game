@@ -13,6 +13,8 @@ import java.net.URL;
 
 public class parsingXML{
 
+
+    private int x, y;
     public static void main(String[] args) {
         Document doc = null;
         parsingXML parsing = new parsingXML();

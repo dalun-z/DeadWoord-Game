@@ -2,9 +2,7 @@ package cs345.deadwood;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
+import java.awt.event.*;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -12,12 +10,14 @@ import java.util.ArrayList;
 public class BoardView implements MouseListener {
 
     private JFrame frame;
+    private JTextArea comment;
+    private JButton moveButton, passButton, actButton;
     private final int VERTICAL_PADDING = 5;
     private final int HORIZONTAL_PADDING = 5;
     private Deck deck;
 
     ArrayList<Player> players = new ArrayList<Player>();
-
+    
     public void init(int n) {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +45,6 @@ public class BoardView implements MouseListener {
                 players.add(new Player(i, "Trailer", 0, 0, diceColor[i], 1));
             }
         }
-
 
         URL boardImg = getClass().getClassLoader().getResource("img/board.png");
         JLabel board = new JLabel(new ImageIcon(boardImg.getPath().replace("%20", " ")));
@@ -141,19 +140,19 @@ public class BoardView implements MouseListener {
         JLabel panelTitle = new JLabel("Move options");
         panelTitle.setFont(new Font("TimesRoman", Font.BOLD, 18));
         movePanel.add(panelTitle);
-
+        
         JPanel buttonpabel = new JPanel(new FlowLayout());
         
-        JButton moveButton = new JButton("Move");
-        //moveButton.addActionListener(new clickButtonListener());
+        moveButton = new JButton("Move");
+        moveButton.addActionListener(new ButtonListener());
         buttonpabel.add(moveButton);
         
-        JButton passButton = new JButton("Pass");
-        //passButton.addActionListener(new clickButtonListener());
+        passButton = new JButton("Pass");
+        passButton.addActionListener(new ButtonListener());
         buttonpabel.add(passButton);
         
-        JButton actButton = new JButton("Act");
-        //actButton.addActionListener(new clickButtonListener());
+        actButton = new JButton("Act");
+        actButton.addActionListener(new ButtonListener());
         buttonpabel.add(actButton);
 
         movePanel.add(buttonpabel);
@@ -169,21 +168,35 @@ public class BoardView implements MouseListener {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(300 - HORIZONTAL_PADDING*2, 250));
 
-        JLabel panelTitle = new JLabel("Free space");
+        JLabel panelTitle = new JLabel("Game Log");
         panelTitle.setFont(new Font("TimesRoman", Font.BOLD, 18));
         panel.add(panelTitle);
 
-        JTextArea comment = new JTextArea("free space to use for comments or any game related stuff. E.g., show rolling die or show game log.");
+
+        comment = new JTextArea();
         comment.setLineWrap(true);
         comment.setPreferredSize(panel.getPreferredSize());
         panel.add(comment);
         return panel;
     }
 
+    private class ButtonListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            if(e.getSource() == passButton){
+                comment.append("Player choose 'Pass'\n");
+            }else if(e.getSource() == moveButton){
+                comment.append("Player, please selection the neighbor area to go to\n");
+            }else if(e.getSource() == actButton){
+                comment.append("Player, please select a role\n");
+            }
+        }
+    }
+
     @Override
     public void mouseClicked(MouseEvent e) {
         // The top bar of the frame is about 30 pixels in height. So to get the x,y values on the board, subtract 30 from the y value.
         System.out.println("Mouse clicked at X = " + e.getX() + ", Y = " + (e.getY() - 30));
+        comment.append("XY position " + e.getX() + ", " + e.getY() + "\n");
     }
 
     @Override
