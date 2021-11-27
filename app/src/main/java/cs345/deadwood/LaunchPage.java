@@ -27,8 +27,6 @@ public class LaunchPage implements ActionListener{
         label.setLabelFor(enterNum);
         enterNum.setSize(150, 150);
         
-
-        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400,400);
         frame.add(enterNum);
@@ -47,6 +45,5 @@ public class LaunchPage implements ActionListener{
             BoardView boardView = new BoardView();
             boardView.init(input);
         }
-        
     }
 }
