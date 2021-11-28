@@ -12,6 +12,7 @@ public class Deadwood {
         ArrayList<Player> players = new ArrayList<Player>();
         ArrayList<Scene> scenes = new ArrayList<Scene>();
         HashMap<String, Location> locations = new HashMap<String, Location>();
+        Integer days;
 
         parsingXML parser = new parsingXML();
 
@@ -24,11 +25,14 @@ public class Deadwood {
         for(String key : locations.keySet()) {
             Location currentLoc = locations.get(key);
             currentLoc.setScene(scenes.get(iter++));
-            // boardView.renderLocation(currentLoc);
         }
 
         LaunchPage launchPage = new LaunchPage(players, boardView, locations);
+        days = players.size() <= 3 ? 3 : 4;
 
-        
+        while (days > 0) {
+            //playyyyyyy the game
+        }
+
     }
 }
