@@ -16,19 +16,16 @@ public class Deadwood {
 
         parsingXML parser = new parsingXML();
 
-        parser.parse(locations, "board");
-        // parser.readCardData();
+        parser.parseBoard(locations);
+        parser.parseCards(scenes);
 
         System.out.println("Locations: ");
         System.out.println(locations);
+
         // for(i = whatever to total locations) {
         //     locations.get(whatever).scene = math.random(scene);
         // }
 
         LaunchPage launchPage = new LaunchPage(players);
-
-        players.add(new Player(5, "Jail", 4, 3, "b", 6));
-
-
     }
 }
