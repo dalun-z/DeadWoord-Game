@@ -19,10 +19,14 @@ public class LaunchPage implements ActionListener{
     JTextField enterNum = new JTextField(20);
 
     ArrayList<Player> players;
+    HashMap<String, Location> locations;
+    BoardView bv;
     int input;
 
-    LaunchPage(ArrayList<Player> players){
+    LaunchPage(ArrayList<Player> players, BoardView boardView, HashMap<String, Location> locations){
         this.players = players;
+        this.locations = locations;
+        this.bv = boardView;
 
         button.setBounds(100, 160, 200, 40);
         button.setFocusable(false);
@@ -46,8 +50,7 @@ public class LaunchPage implements ActionListener{
         if(e.getSource() == button){
             input = Integer.parseInt(enterNum.getText());
             frame.dispose();
-            BoardView boardView = new BoardView();
-            boardView.init(input, players);
+            bv.init(input, players, locations);
         }
     }
 }

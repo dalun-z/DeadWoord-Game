@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.*;
 
 
 public class BoardView implements MouseListener {
@@ -14,12 +14,14 @@ public class BoardView implements MouseListener {
     private JButton moveButton, passButton, actButton;
     private final int VERTICAL_PADDING = 5;
     private final int HORIZONTAL_PADDING = 5;
-    private Deck deck;
+    // private Deck deck;
 
     ArrayList<Player> players;
+    HashMap<String, Location> locations;
     
-    public void init(int n, ArrayList<Player> players) {
+    public void init(int n, ArrayList<Player> players, HashMap<String, Location> locations) {
         this.players = players;
+        this.locations = locations;
         
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,9 +32,11 @@ public class BoardView implements MouseListener {
         // Set layout to null, so we can place widgets based on x-y coordinates.
         frame.setLayout(null);
 
-        // TODO: set locations for players programmatically (instead of this)
-        SetView trainStation = new SetView(frame);
-        trainStation.drawSet();
+        // // TODO: set locations for players programmatically (instead of this)
+        // SetView trainStation = new SetView(frame);
+        // trainStation.drawSet();
+        LocationView locView = new LocationView(frame, locations);
+        locView.drawLocations();
 
         String[] diceColor = {"r", "b", "y", "c", "g", "o", "p", "v", "w"};
 
@@ -86,8 +90,6 @@ public class BoardView implements MouseListener {
         controlPanel.add(playerInfoLabel);
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
 
-        // TODO: pull player data from Player class instances
-        //TODO: (optional) implement support for different player counts
         // Show players
         for(int i = 0; i < players.size(); i++){
             Player p = players.get(i);
@@ -144,21 +146,21 @@ public class BoardView implements MouseListener {
         panelTitle.setFont(new Font("TimesRoman", Font.BOLD, 18));
         movePanel.add(panelTitle);
         
-        JPanel buttonpabel = new JPanel(new FlowLayout());
+        JPanel buttonPanel = new JPanel(new FlowLayout());
         
         moveButton = new JButton("Move");
         moveButton.addActionListener(new ButtonListener());
-        buttonpabel.add(moveButton);
+        buttonPanel.add(moveButton);
         
         passButton = new JButton("Pass");
         passButton.addActionListener(new ButtonListener());
-        buttonpabel.add(passButton);
+        buttonPanel.add(passButton);
         
         actButton = new JButton("Act");
         actButton.addActionListener(new ButtonListener());
-        buttonpabel.add(actButton);
+        buttonPanel.add(actButton);
 
-        movePanel.add(buttonpabel);
+        movePanel.add(buttonPanel);
 
         return movePanel;
 
@@ -183,13 +185,13 @@ public class BoardView implements MouseListener {
         return panel;
     }
 
-    private class ButtonListener implements ActionListener{
+    private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
-            if(e.getSource() == passButton){
+            if (e.getSource() == passButton) {
                 comment.append("Player choose 'Pass'\n");
-            }else if(e.getSource() == moveButton){
+            } else if (e.getSource() == moveButton) {
                 comment.append("Player, please selection the neighbor area to go to\n");
-            }else if(e.getSource() == actButton){
+            } else if (e.getSource() == actButton) {
                 comment.append("Player, please select a role\n");
             }
         }
