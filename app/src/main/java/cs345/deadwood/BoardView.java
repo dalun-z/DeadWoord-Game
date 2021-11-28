@@ -16,9 +16,11 @@ public class BoardView implements MouseListener {
     private final int HORIZONTAL_PADDING = 5;
     private Deck deck;
 
-    ArrayList<Player> players = new ArrayList<Player>();
+    ArrayList<Player> players;
     
-    public void init(int n) {
+    public void init(int n, ArrayList<Player> players) {
+        this.players = players;
+        
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(1500, 930));
@@ -90,6 +92,7 @@ public class BoardView implements MouseListener {
         for(int i = 0; i < players.size(); i++){
             Player p = players.get(i);
             controlPanel.add(showPlayerInfo(p));
+            System.out.println("Showing player " + i);
         }
 
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding

@@ -10,15 +10,19 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.util.*;
+
 public class LaunchPage implements ActionListener{
     JFrame frame = new JFrame("Enter player number");
     JButton button = new JButton("Enter");
     JLabel label = new JLabel("Number of Player");
     JTextField enterNum = new JTextField(20);
 
+    ArrayList<Player> players;
     int input;
 
-    LaunchPage(){
+    LaunchPage(ArrayList<Player> players){
+        this.players = players;
 
         button.setBounds(100, 160, 200, 40);
         button.setFocusable(false);
@@ -43,7 +47,7 @@ public class LaunchPage implements ActionListener{
             input = Integer.parseInt(enterNum.getText());
             frame.dispose();
             BoardView boardView = new BoardView();
-            boardView.init(input);
+            boardView.init(input, players);
         }
     }
 }
