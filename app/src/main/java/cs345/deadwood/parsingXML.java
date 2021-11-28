@@ -93,13 +93,13 @@ public class parsingXML{
 
             Node card = cards.item(i);
             String cardName = card.getAttributes().getNamedItem("name").getNodeValue();
-            System.out.println("Card name is : " + cardName);
+            //System.out.println("Card name is : " + cardName);
 
             String imgFileName = card.getAttributes().getNamedItem("img").getNodeValue();
-            System.out.println("Card img file name is : " + imgFileName);
+            //System.out.println("Card img file name is : " + imgFileName);
 
             String cardBudget = card.getAttributes().getNamedItem("budget").getNodeValue();
-            System.out.println("Card budget is : " + cardBudget);
+            //System.out.println("Card budget is : " + cardBudget);
 
             NodeList part = card.getChildNodes();
 
@@ -109,16 +109,16 @@ public class parsingXML{
                 // ByTagName (part, area, etc)
                 if("scene".equals(parts.getNodeName())){
                     String sceneNum = parts.getAttributes().getNamedItem("number").getNodeValue();
-                    System.out.println("Scene number is : " + sceneNum);
+                    //System.out.println("Scene number is : " + sceneNum);
                     String sceneTxt = parts.getTextContent();
-                    System.out.println("Scene description : " + sceneTxt);
+                    //System.out.println("Scene description : " + sceneTxt);
                 }
                 
                 if("part".equals(parts.getNodeName())){
                     String partName = parts.getAttributes().getNamedItem("name").getNodeValue();
-                    System.out.println("Part name : " + partName);
+                    //System.out.println("Part name : " + partName);
                     String level = parts.getAttributes().getNamedItem("level").getNodeValue();
-                    System.out.println("Level is : " + level);
+                    //System.out.println("Level is : " + level);
 
                 }
 
@@ -131,12 +131,12 @@ public class parsingXML{
                         String y = partInfo.getAttributes().getNamedItem("y").getNodeValue();
                         String h = partInfo.getAttributes().getNamedItem("h").getNodeValue();
                         String w = partInfo.getAttributes().getNamedItem("w").getNodeValue();
-                        System.out.print("Location coordinates : ");
-                        System.out.println("x = " + x + ", y = " + y + ", h = " + h + ", w = " + w);
+                        //System.out.print("Location coordinates : ");
+                        //System.out.println("x = " + x + ", y = " + y + ", h = " + h + ", w = " + w);
                     }
                 }
             }
-            System.out.println("\n");
+            //System.out.println("\n");
         }
     }
 
@@ -153,7 +153,7 @@ public class parsingXML{
         for(int i = 0; i < board.getLength(); i++) {
             Node set = board.item(i);
             String setName = set.getAttributes().getNamedItem("name").getNodeValue();
-            System.out.println("Set name is: " + setName);
+            //System.out.println("Set name is: " + setName);
 
             
 
@@ -171,7 +171,7 @@ public class parsingXML{
                         if("neighbor".equals(component.getNodeName())) {
                             String setNeighbor = component.getAttributes().getNamedItem("name").getNodeValue();
                             neighbors.add(setNeighbor);
-                            System.out.println("Set Neighbor is: " + setNeighbor);
+                            //System.out.println("Set Neighbor is: " + setNeighbor);
                         }
                     }
                 }
@@ -188,8 +188,8 @@ public class parsingXML{
                     cardArea.setW(Integer.parseInt(w));
                     cardArea.setH(Integer.parseInt(h));
 
-                    System.out.print("Set coordinates: ");
-                    System.out.println("x = " + x + ", y = " + y + ", h = " + h + ", w = " + w);
+                    //System.out.print("Set coordinates: ");
+                    //System.out.println("x = " + x + ", y = " + y + ", h = " + h + ", w = " + w);
                 }
                 
                 if("takes".equals(subNode.getNodeName())) {
@@ -198,7 +198,7 @@ public class parsingXML{
                         
                         if("take".equals(takeNode.getNodeName())) {
                             String setTake = takeNode.getAttributes().getNamedItem("number").getNodeValue();
-                            System.out.println("Set Takes: " + setTake);
+                            //System.out.println("Set Takes: " + setTake);
                             
                             NodeList areas = takeNode.getChildNodes();
                             for(int l = 0; l < areas.getLength(); l++) {
@@ -209,8 +209,8 @@ public class parsingXML{
                                     String h = areaNode.getAttributes().getNamedItem("h").getNodeValue();
                                     String w = areaNode.getAttributes().getNamedItem("w").getNodeValue();
                                     
-                                    System.out.print("Takes coordinates: ");
-                                    System.out.println("x = " + x + ", y = " + y + ", h = " + h + ", w = " + w);
+                                    //System.out.print("Takes coordinates: ");
+                                    //System.out.println("x = " + x + ", y = " + y + ", h = " + h + ", w = " + w);
                                     
                                     Area a = new Area(Integer.parseInt(x), Integer.parseInt(y), Integer.parseInt(w), Integer.parseInt(h));
                                     takes.add(a);
@@ -230,11 +230,11 @@ public class parsingXML{
                             String line = "";
 
                             String partName = partNode.getAttributes().getNamedItem("name").getNodeValue();
-                            System.out.println("Part name: " + partName);
+                            //System.out.println("Part name: " + partName);
                             roleName = partName;
 
                             String partLevel = partNode.getAttributes().getNamedItem("level").getNodeValue();
-                            System.out.println("Part level: " + partLevel);
+                            //System.out.println("Part level: " + partLevel);
                             rank = Integer.parseInt(partLevel);
 
                             NodeList partsPartInfo = partNode.getChildNodes();
@@ -246,8 +246,8 @@ public class parsingXML{
                                     String y = partComponent.getAttributes().getNamedItem("y").getNodeValue();
                                     String h = partComponent.getAttributes().getNamedItem("h").getNodeValue();
                                     String w = partComponent.getAttributes().getNamedItem("w").getNodeValue();
-                                    System.out.print("Takes coordinates: ");
-                                    System.out.println("x = " + x + ", y = " + y + ", h = " + h + ", w = " + w);
+                                    //System.out.print("Takes coordinates: ");
+                                    //System.out.println("x = " + x + ", y = " + y + ", h = " + h + ", w = " + w);
                                     
                                     area.setX(Integer.parseInt(x));
                                     area.setY(Integer.parseInt(y));
@@ -257,7 +257,7 @@ public class parsingXML{
                                 
                                 if ("line".equals(partComponent.getNodeName())) {
                                     String partLine = partComponent.getTextContent();
-                                    System.out.println("part line: " + partLine);
+                                    //System.out.println("part line: " + partLine);
                                     line = partLine;
                                 }
                             }
@@ -268,11 +268,12 @@ public class parsingXML{
                     }
                 }
 
-                System.out.println("\n");
+                //System.out.println("\n");
             }
             
             map.put(setName, loc);
-            System.out.println("Added location to map");
+            //System.out.println("Added location to map");
         }
+
     }
 }

@@ -18,11 +18,16 @@ public class Deadwood {
 
         parser.parseBoard(locations);
         parser.parseCards(scenes);
+        
+        System.out.println(locations.get("Train Station").getCardArea().toString());
 
         // for(i = whatever to total locations) {
         //     locations.get(whatever).scene = math.random(scene);
         // }
 
         LaunchPage launchPage = new LaunchPage(players);
+
+        
+        
     }
 }
