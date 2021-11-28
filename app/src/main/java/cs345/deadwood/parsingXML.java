@@ -135,16 +135,19 @@ public class parsingXML{
     public void readBoardData(Document d, HashMap<String, Location> map) {
         Element root = d.getDocumentElement();
         NodeList board = root.getElementsByTagName("set");
+
+        Area cardArea = new Area();
+        ArrayList<String> neighbors = new ArrayList<String>();
+        ArrayList<Area> takes = new ArrayList<Area>();
+        ArrayList<ExtraRole> roles = new ArrayList<ExtraRole>();
+        Location loc = new Location(cardArea, neighbors, takes, roles);
         
         for(int i = 0; i < board.getLength(); i++) {
             Node set = board.item(i);
             String setName = set.getAttributes().getNamedItem("name").getNodeValue();
             System.out.println("Set name is: " + setName);
 
-            Area cardArea = new Area();
-            ArrayList<String> neighbors = new ArrayList<String>();
-            ArrayList<Area> takes = new ArrayList<Area>();
-            ArrayList<ExtraRole> roles = new ArrayList<ExtraRole>();
+            
 
             NodeList nodes = set.getChildNodes();
             
@@ -259,7 +262,7 @@ public class parsingXML{
 
                 System.out.println("\n");
             }
-            Location loc = new Location(cardArea, neighbors, takes, roles);
+            
             map.put(setName, loc);
         }
     }
