@@ -10,6 +10,13 @@ public class Scene {
     String description;
     ArrayList<StarringRole> roles;
 
+    public Scene(String name, String imagePath, int budget) {
+        this.name = name;
+        this.imagePath = imagePath;
+        this.budget = budget;
+        this.roles = new ArrayList<StarringRole>();
+    }
+
     public Scene(String name, String imagePath, String description, int budget, int number, ArrayList<StarringRole> roles) {
         this.name = name;
         this.imagePath = imagePath;
@@ -41,5 +48,17 @@ public class Scene {
 
     public ArrayList<StarringRole> getRoles() {
         return this.roles;
+    }
+
+    public void setNumber(int n) {
+        this.number = n;
+    }
+
+    public void setDescription(String desc) {
+        this.description = desc;
+    }
+
+    public void addRole(StarringRole role) {
+        this.roles.add(role);
     }
 }

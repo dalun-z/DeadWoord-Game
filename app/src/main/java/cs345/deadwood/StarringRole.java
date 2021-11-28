@@ -17,6 +17,11 @@ public class StarringRole implements Role {
     private Area area;
     private String line;
 
+    public StarringRole(String name, int rank) {
+        this.name = name;
+        this.rank = rank;
+    }
+
     public StarringRole(String name, int rank, Area area, String line) {
         this.name = name;
         this.rank = rank;
@@ -49,5 +54,13 @@ public class StarringRole implements Role {
 
     public String getLine() {
         return this.line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
     }
 }
