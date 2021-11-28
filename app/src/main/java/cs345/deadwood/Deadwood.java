@@ -3,13 +3,12 @@
  */
 package cs345.deadwood;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import java.awt.event.*;
 public class Deadwood {
     
     public static void main(String[] args) {
-        // BoardView view = new BoardView();
-        // view.init();
+        BoardView boardView = new BoardView();
         ArrayList<Player> players = new ArrayList<Player>();
         ArrayList<Scene> scenes = new ArrayList<Scene>();
         HashMap<String, Location> locations = new HashMap<String, Location>();
@@ -18,16 +17,18 @@ public class Deadwood {
 
         parser.parseBoard(locations);
         parser.parseCards(scenes);
-        
-        System.out.println(locations.get("Train Station").getCardArea().toString());
 
-        // for(i = whatever to total locations) {
-        //     locations.get(whatever).scene = math.random(scene);
-        // }
+        Collections.shuffle(scenes);
 
-        LaunchPage launchPage = new LaunchPage(players);
+        int iter = 0;
+        for(String key : locations.keySet()) {
+            Location currentLoc = locations.get(key);
+            currentLoc.setScene(scenes.get(iter++));
+            // boardView.renderLocation(currentLoc);
+        }
 
-        
+        LaunchPage launchPage = new LaunchPage(players, boardView, locations);
+
         
     }
 }

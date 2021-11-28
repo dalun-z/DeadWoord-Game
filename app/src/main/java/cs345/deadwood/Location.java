@@ -9,6 +9,7 @@ public class Location {
     private ArrayList<Area> takes;
     private int currentTake;
     private ArrayList<ExtraRole> roles;
+    private boolean revealed = false;
 
     public Location(Area cardArea, ArrayList<String> neighbors, ArrayList<Area> takes, ArrayList<ExtraRole> roles) {
         this.cardArea = cardArea;
@@ -44,5 +45,13 @@ public class Location {
 
     public ArrayList<ExtraRole> getRoles() {
         return this.roles;
+    }
+
+    public void reveal() {
+        this.revealed = true;
+    }
+
+    public boolean isRevealed() {
+        return this.revealed;
     }
 }
