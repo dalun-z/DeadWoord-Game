@@ -19,9 +19,6 @@ public class Deadwood {
         parser.parseBoard(locations);
         parser.parseCards(scenes);
 
-        System.out.println("Locations: ");
-        System.out.println(locations);
-
         // for(i = whatever to total locations) {
         //     locations.get(whatever).scene = math.random(scene);
         // }

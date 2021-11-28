@@ -52,13 +52,13 @@ public class parsingXML{
         }
     }
     
-    public void parseCards(HashMap<String, Location> map) {
+    public void parseCards(ArrayList<Scene> scenes) {
         Document doc = null;
 
         try {
             URL resource = parsingXML.class.getClassLoader().getResource("cards.xml");
             doc = this.getDocFromFile(resource.getPath().replace("%20", " "));
-            this.readCardData(doc, map);
+            this.readCardData(doc, scenes);
         } catch (NullPointerException e) {
             System.out.println("Error = " + e);
             return;
@@ -84,7 +84,7 @@ public class parsingXML{
         } // exception handling
     }
 
-    public void readCardData(Document d){
+    public void readCardData(Document d, ArrayList<Scene> scenes){
         Element root = d.getDocumentElement();
 
         NodeList cards = root.getElementsByTagName("card");
