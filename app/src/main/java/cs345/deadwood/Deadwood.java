@@ -10,30 +10,19 @@ public class Deadwood {
     public static void main(String[] args) {
         // BoardView view = new BoardView();
         // view.init();
-
-        
-
         ArrayList<Player> players = new ArrayList<Player>();
-
-        LaunchPage launchPage = new LaunchPage(players);
         ArrayList<Scene> scenes = new ArrayList<Scene>();
         HashMap<String, Location> locations = new HashMap<String, Location>();
 
         parsingXML parser = new parsingXML();
 
-        parser.parse(locations, "board");
-        // parser.readCardData();
+        parser.parseBoard(locations);
+        parser.parseCards(scenes);
 
-        System.out.println("Locations: ");
-        System.out.println(locations.get("Train Station"));
         // for(i = whatever to total locations) {
         //     locations.get(whatever).scene = math.random(scene);
         // }
 
-        
-
-        players.add(new Player(5, "Jail", 4, 3, "b", 6));
-
-
+        LaunchPage launchPage = new LaunchPage(players);
     }
 }

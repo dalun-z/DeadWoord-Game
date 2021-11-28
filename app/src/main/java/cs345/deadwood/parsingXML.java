@@ -36,21 +36,13 @@ public class parsingXML{
 
     public parsingXML() {}
 
-    public void parse(HashMap<String, Location> map, String type) {
+    public void parseBoard(HashMap<String, Location> map) {
         Document doc = null;
-        // parsingXML parsing = new parsingXML();
 
         try {
-            URL resource = parsingXML.class.getClassLoader().getResource("cards.xml");
+            URL resource = parsingXML.class.getClassLoader().getResource("board.xml");
             doc = this.getDocFromFile(resource.getPath().replace("%20", " "));
-            if (type == "card") {
-                this.readCardData(doc);
-            } else if (type == "board") {
-                this.readBoardData(doc, map);
-            } else {
-                throw new Error("ah fuck");
-            }
-
+            this.readBoardData(doc, map);
         } catch (NullPointerException e) {
             System.out.println("Error = " + e);
             return;
@@ -60,6 +52,22 @@ public class parsingXML{
         }
     }
     
+    public void parseCards(ArrayList<Scene> scenes) {
+        Document doc = null;
+
+        try {
+            URL resource = parsingXML.class.getClassLoader().getResource("cards.xml");
+            doc = this.getDocFromFile(resource.getPath().replace("%20", " "));
+            this.readCardData(doc, scenes);
+        } catch (NullPointerException e) {
+            System.out.println("Error = " + e);
+            return;
+        } catch (Exception e) {
+            System.out.println("Error = " + e);
+            return;
+        }
+    }
+
     private Document getDocFromFile(String filename) throws ParserConfigurationException {
         {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -76,7 +84,7 @@ public class parsingXML{
         } // exception handling
     }
 
-    public void readCardData(Document d){
+    public void readCardData(Document d, ArrayList<Scene> scenes){
         Element root = d.getDocumentElement();
 
         NodeList cards = root.getElementsByTagName("card");
@@ -264,6 +272,7 @@ public class parsingXML{
             }
             
             map.put(setName, loc);
+            System.out.println("Added location to map");
         }
     }
 }

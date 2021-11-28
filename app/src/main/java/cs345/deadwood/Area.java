@@ -55,4 +55,9 @@ public class Area {
                 return true;
         } else return false;
     }
+
+    @Override
+    public String toString() {
+        return this.x + ", " + this.y + ", " + this.w + ", " + this.h;
+    }
 }
