@@ -19,6 +19,8 @@ public class Deadwood {
 
         parsingXML parser = new parsingXML();
 
+        Score finalScore = new Score();
+
         parser.parseBoard(global.locations);
         parser.parseCards(global.scenes);
 
@@ -76,6 +78,10 @@ public class Deadwood {
                 global.currentPlayer.setCash(global.currentPlayer.getCash());
                 global.currentPlayer.setCredit(global.currentPlayer.getCredit());
 
+                if(global.days == 1){
+                    finalScore.calScore(global.currentPlayer.getCash(), global.currentPlayer.getCredit(), global.currentPlayer.getRank());
+                }
+
                 global.nextPlayer();
                 System.out.println("Current player: " + global.currentPlayer.getPlayer());
             } else if (global.action == "act") {
@@ -85,6 +91,10 @@ public class Deadwood {
                 global.nextPlayer();
                 System.out.println("Current player: " + global.currentPlayer.getPlayer());
             }
+
+            
+
+            global.days--;
         }
     }
 }
