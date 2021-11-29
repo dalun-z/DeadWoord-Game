@@ -186,37 +186,45 @@ public class BoardView implements MouseListener {
         return panel;
     }
 
-    public void update() {
+    public void handlePass() {
+        comment.setText(null);
+        comment.append("Player choose 'Pass'\n");
+        global.action = "pass";
+        synchronized(global) {global.notify();}
+    }
+
+    public void handleMove() {
+        String currentLoc = global.currentPlayer.getLocation();
+        comment.setText(null);
+        comment.append("Player "+ global.currentPlayer.getPlayer() +", please selection the neighbor area to go to:\n");
+        comment.append("Player current location: " + currentLoc + "\n");
         
+        System.out.println("All Loaded Locations: " + global.locations.keySet());
+        
+        comment.append("Possible locations: \n");
+        for (String loc : global.locations.get(currentLoc).getNeighbors()) {
+            comment.append(loc + ", ");
+        }
+        global.action = "move";
+        synchronized(global) {global.notify();}
+        // System.out.println("Global action: " + global.action);
+    }
+
+    public void handleAct() {
+        comment.setText(null);
+        comment.append("Player "+ global.currentPlayer.getPlayer() +", please select a role\n");
+        global.action = "act";
+        synchronized(global) {global.notify();}
     }
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
             if (e.getSource() == passButton) {
-                comment.setText(null);
-                comment.append("Player choose 'Pass'\n");
-                global.action = "pass";
-                synchronized(global) {global.notify();}
+                handlePass();
             } else if (e.getSource() == moveButton) {
-                String currentLoc = global.currentPlayer.getLocation();
-                comment.setText(null);
-                comment.append("Player "+ global.currentPlayer.getPlayer() +", please selection the neighbor area to go to:\n");
-                comment.append("Player current location: " + currentLoc + "\n");
-                
-                System.out.println("All Loaded Locations: " + global.locations.keySet());
-                
-                comment.append("Possible locations: \n");
-                for (String loc : global.locations.get(currentLoc).getNeighbors()) {
-                    comment.append(loc + ", ");
-                }
-                global.action = "move";
-                synchronized(global) {global.notify();}
-                // System.out.println("Global action: " + global.action);
+                handleMove();
             } else if (e.getSource() == actButton) {
-                comment.setText(null);
-                comment.append("Player "+ global.currentPlayer.getPlayer() +", please select a role\n");
-                global.action = "act";
-                synchronized(global) {global.notify();}
+                handleAct();
             }
         }
     }
