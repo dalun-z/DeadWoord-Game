@@ -2,6 +2,7 @@ package cs345.deadwood;
 
 import java.util.*;
 
+
 public class Scene {
     int number;
     int budget;
