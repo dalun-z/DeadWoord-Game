@@ -207,10 +207,14 @@ public class BoardView implements MouseListener {
                 comment.setText(null);
                 comment.append("Player "+ global.currentPlayer.getPlayer() +", please selection the neighbor area to go to:\n");
                 comment.append("Player current location: " + currentLoc + "\n");
-                comment.append("Possible locations: \n");
-                for (String loc : global.locations.get(currentLoc).getNeighbors()) {
-                    comment.append(loc + " ");
-                }
+                
+                System.out.println("All Loaded Locations: " + global.locations.keySet());
+                
+                // comment.append("Possible locations: \n");
+
+                // for (String loc : global.locations.get(currentLoc).getNeighbors()) {
+                //     comment.append(loc + " ");
+                // }
                 global.action = "move";
                 synchronized(global) {global.notify();}
                 // System.out.println("Global action: " + global.action);
