@@ -12,6 +12,7 @@ public class BoardView implements MouseListener {
     private JFrame frame;
     private JTextArea comment;
     private JButton moveButton, passButton, actButton;
+    private JPanel controlPanel;
     private final int VERTICAL_PADDING = 5;
     private final int HORIZONTAL_PADDING = 5;
     // private Deck deck;
@@ -72,7 +73,7 @@ public class BoardView implements MouseListener {
     }
 
     private JPanel createControlPanel() {
-        JPanel controlPanel = new JPanel();
+        controlPanel = new JPanel();
         controlPanel.setPreferredSize(new Dimension(300, 900));
         // Set height same as the board image. board image dimensions are 1200 x 900
 
@@ -95,7 +96,8 @@ public class BoardView implements MouseListener {
         // Show players
         for(int i = 0; i < players.size(); i++){
             Player p = players.get(i);
-            controlPanel.add(showPlayerInfo(p));
+            // controlPanel.add(showPlayerInfo(p));
+            controlPanel.add(showPlayerInfo(p), i);
         }
 
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding
@@ -111,8 +113,15 @@ public class BoardView implements MouseListener {
 
         controlPanel.add(miscInteraction());
 
-
         return controlPanel;
+    }
+
+    private void updateControlPanel(Player player) {
+        int compIndex = player.getPlayer() - 1;
+        controlPanel.remove(compIndex);
+        controlPanel.add(showPlayerInfo(player), compIndex);
+        controlPanel.revalidate();
+        controlPanel.repaint();
     }
 
     private JPanel showPlayerInfo(Player player) {
@@ -212,7 +221,20 @@ public class BoardView implements MouseListener {
         // System.out.println("Global action: " + global.action);
     }
 
-    
+    public void handleMoveSelection(int x, int y) {
+        System.out.println("Moving player");
+        Player curr = global.currentPlayer;
+        boolean validated = global.validateMove(x, y, locations.get(curr.getLocation()).getNeighbors());
+
+        if (validated) {
+            comment.append("Player " + curr.getPlayer() + " moved to " + curr.getLocation());
+            updateControlPanel(curr);
+            awaitingMoveDestination = false;
+            synchronized(global.boardView) {global.boardView.notify();};
+        } else {
+            comment.append("Invalid move, please select a valid location's card");
+        }
+    }
 
     public void handleAct() {
         comment.setText(null);
@@ -244,16 +266,7 @@ public class BoardView implements MouseListener {
         comment.append("XY position " + x + ", " + y + "\n");
         
         if (awaitingMoveDestination) {
-            System.out.println("Moving player");
-            boolean validated = global.validateMove(x, y, locations.get(global.currentPlayer.getLocation()).getNeighbors());
-
-            if (validated) {
-                comment.append("Player " + global.currentPlayer.getPlayer() + " moved to " + global.currentPlayer.getLocation());
-                awaitingMoveDestination = false;
-                synchronized(global.boardView) {global.boardView.notify();};
-            } else {
-                comment.append("Invalid move, please select a valid location's card");
-            }
+            handleMoveSelection(x, y);
         }
     }
 
