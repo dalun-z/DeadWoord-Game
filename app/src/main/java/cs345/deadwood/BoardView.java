@@ -96,7 +96,6 @@ public class BoardView implements MouseListener {
         for(int i = 0; i < players.size(); i++){
             Player p = players.get(i);
             controlPanel.add(showPlayerInfo(p));
-            System.out.println("Showing player " + i);
         }
 
         controlPanel.add(Box.createRigidArea(new Dimension(0,VERTICAL_PADDING))); // Add padding

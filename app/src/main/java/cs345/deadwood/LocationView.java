@@ -20,20 +20,22 @@ public class LocationView {
 
     public void drawLocations() {
         for(String key : locations.keySet()) {
-            Location l = locations.get(key);
-            String imagePath = l.getScene().getImagePath();
+            if (key != "office" && key != "Trailer") {
+                Location l = locations.get(key);
+                String imagePath = l.getScene().getImagePath();
 
-            if (l.isRevealed()) {
-                card = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/" + imagePath).getPath().replace("%20", " ")));
-                System.out.println("card dimensions: x: " + l.getCardArea().getX() + ", y: " + l.getCardArea().getY());
-                card.setLocation(l.getCardArea().getX(), l.getCardArea().getY()); 
-                card.setSize(l.getCardArea().getW(), l.getCardArea().getH()); 
-                board.add(card);
-            } else {
-                card = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/cardback.png").getPath().replace("%20", " ")));
-                card.setLocation(l.getCardArea().getX(), l.getCardArea().getY()); 
-                card.setSize(l.getCardArea().getW(), l.getCardArea().getH()); 
-                board.add(card);
+                if (l.isRevealed()) {
+                    card = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/" + imagePath).getPath().replace("%20", " ")));
+                    System.out.println("card dimensions: x: " + l.getCardArea().getX() + ", y: " + l.getCardArea().getY());
+                    card.setLocation(l.getCardArea().getX(), l.getCardArea().getY()); 
+                    card.setSize(l.getCardArea().getW(), l.getCardArea().getH()); 
+                    board.add(card);
+                } else {
+                    card = new JLabel(new ImageIcon(getClass().getClassLoader().getResource("img/cardback.png").getPath().replace("%20", " ")));
+                    card.setLocation(l.getCardArea().getX(), l.getCardArea().getY()); 
+                    card.setSize(l.getCardArea().getW(), l.getCardArea().getH()); 
+                    board.add(card);
+                }
             }
         }
     }
