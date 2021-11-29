@@ -26,4 +26,16 @@ public class GameState {
     public void nextPlayer() {
         this.currentPlayer = this.players.get(((this.currentPlayer.getPlayer() - 1) + 1) % this.players.size());
     }
+
+    public boolean isValidMove(Location source, Location dest) {
+        for (String d : source.getNeighbors()) {
+            // if ()
+        }
+
+        return false;
+    }
+
+    public void movePlayer(Player p, String l) {
+        p.setLocation(l);
+    }
 }

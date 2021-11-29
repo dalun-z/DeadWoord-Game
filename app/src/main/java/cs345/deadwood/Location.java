@@ -54,4 +54,11 @@ public class Location {
     public boolean isRevealed() {
         return this.revealed;
     }
+
+    public boolean isInLocation(int x, int y) {
+        if (x >= this.cardArea.getX() && x <= this.cardArea.getX() + this.cardArea.getW() &&
+            y >= this.cardArea.getY() && y <= this.cardArea.getY() + this.cardArea.getH()) {
+                return true;
+            } else return false;
+    }
 }
