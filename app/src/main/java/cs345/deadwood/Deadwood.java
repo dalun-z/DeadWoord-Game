@@ -4,35 +4,50 @@
 package cs345.deadwood;
 
 import java.util.*;
-import java.awt.event.*;
+
 public class Deadwood {
     
     public static void main(String[] args) {
-        BoardView boardView = new BoardView();
-        ArrayList<Player> players = new ArrayList<Player>();
-        ArrayList<Scene> scenes = new ArrayList<Scene>();
-        HashMap<String, Location> locations = new HashMap<String, Location>();
-        Integer days;
+        // BoardView boardView = new BoardView();
+        // ArrayList<Player> players = new ArrayList<Player>();
+        // ArrayList<Scene> scenes = new ArrayList<Scene>();
+        // HashMap<String, Location> locations = new HashMap<String, Location>();
+        // Integer days;
+        // Player currentPlayer;
+
+        GameState global = new GameState();
 
         parsingXML parser = new parsingXML();
 
-        parser.parseBoard(locations);
-        parser.parseCards(scenes);
+        parser.parseBoard(global.locations);
+        parser.parseCards(global.scenes);
 
-        Collections.shuffle(scenes);
+        Collections.shuffle(global.scenes);
 
         int iter = 0;
-        for(String key : locations.keySet()) {
-            Location currentLoc = locations.get(key);
-            currentLoc.setScene(scenes.get(iter++));
+        for(String key : global.locations.keySet()) {
+            Location currentLoc = global.locations.get(key);
+            currentLoc.setScene(global.scenes.get(iter++));
         }
 
-        LaunchPage launchPage = new LaunchPage(players, boardView, locations);
-        days = players.size() <= 3 ? 3 : 4;
-
-        while (days > 0) {
-            //playyyyyyy the game
+        LaunchPage launchPage = new LaunchPage(global);
+        
+        synchronized(launchPage) {
+            try {
+                launchPage.wait();
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted");
+            }
         }
 
+        global.days = global.players.size() <= 3 ? 3 : 4;
+        global.currentPlayer = global.players.get(0);
+
+        System.out.println("Days: " + global.days);
+        System.out.println("First player: " + global.currentPlayer.getPlayer());
+
+        while (global.days > 0) {
+            
+        }
     }
 }

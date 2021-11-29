@@ -19,9 +19,9 @@ public class BoardView implements MouseListener {
     ArrayList<Player> players;
     HashMap<String, Location> locations;
     
-    public void init(int n, ArrayList<Player> players, HashMap<String, Location> locations) {
-        this.players = players;
-        this.locations = locations;
+    public void init(int n, GameState global) {
+        this.players = global.players;
+        this.locations = global.locations;
         
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,6 +68,8 @@ public class BoardView implements MouseListener {
 
         frame.pack();
         frame.setVisible(true);
+
+        comment.append("First Player's turn - please choose an action\n");
     }
 
     private JPanel createControlPanel() {
@@ -210,22 +212,14 @@ public class BoardView implements MouseListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
+    public void mousePressed(MouseEvent e) {}
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
+    public void mouseEntered(MouseEvent e) {}
 
     @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
+    public void mouseExited(MouseEvent e) {}
 }
