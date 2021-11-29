@@ -11,7 +11,7 @@ public class BoardView implements MouseListener {
 
     public JFrame frame;
     private JTextArea comment;
-    private JButton moveButton, passButton, actButton;
+    private JButton moveButton, passButton, actButton, yesButton, noButton;
     private JPanel controlPanel;
     private final int VERTICAL_PADDING = 5;
     private final int HORIZONTAL_PADDING = 5;
@@ -157,7 +157,9 @@ public class BoardView implements MouseListener {
         panelTitle.setFont(new Font("TimesRoman", Font.BOLD, 18));
         movePanel.add(panelTitle);
         
-        JPanel buttonPanel = new JPanel(new FlowLayout());
+        JPanel buttonPanel = new JPanel();
+
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
         
         moveButton = new JButton("Move");
         moveButton.addActionListener(new ButtonListener());
@@ -170,6 +172,14 @@ public class BoardView implements MouseListener {
         actButton = new JButton("Act");
         actButton.addActionListener(new ButtonListener());
         buttonPanel.add(actButton);
+
+        yesButton = new JButton("Yes");
+        yesButton.addActionListener(new ButtonListener());
+        buttonPanel.add(yesButton);
+
+        noButton = new JButton("No");
+        noButton.addActionListener(new ButtonListener());
+        buttonPanel.add(noButton);
 
         movePanel.add(buttonPanel);
 
@@ -221,6 +231,8 @@ public class BoardView implements MouseListener {
         synchronized(global) {global.notify();}
         // System.out.println("Global action: " + global.action);
     }
+
+    
 
     public void handleMoveSelection(int x, int y) {
         System.out.println("Moving player");

@@ -302,7 +302,7 @@ public class parsingXML{
         trailerArea.setH(194);
         map.put("trailer", trailerLoc);
         
-
+        
 
         NodeList officeList = root.getElementsByTagName("office");
         Node office = officeList.item(0);
