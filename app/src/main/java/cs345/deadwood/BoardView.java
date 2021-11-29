@@ -13,6 +13,7 @@ public class BoardView implements MouseListener {
     private JTextArea comment;
     private JButton moveButton, passButton, actButton, yesButton, noButton;
     private JPanel controlPanel;
+    private JPanel buttonPanel;
     private final int VERTICAL_PADDING = 5;
     private final int HORIZONTAL_PADDING = 5;
     // private Deck deck;
@@ -22,6 +23,7 @@ public class BoardView implements MouseListener {
     LocationView locView;
     GameState global;
     boolean awaitingMoveDestination = false;
+    boolean awaitingRoleSelection = false;
 
     public void init(int n) {
         this.global = GameState.getInstance();
@@ -157,7 +159,7 @@ public class BoardView implements MouseListener {
         panelTitle.setFont(new Font("TimesRoman", Font.BOLD, 18));
         movePanel.add(panelTitle);
         
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
 
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.PAGE_AXIS));
         
@@ -238,10 +240,22 @@ public class BoardView implements MouseListener {
         System.out.println("Moving player");
         Player curr = global.currentPlayer;
         boolean validated = global.validateMove(x, y, locations.get(curr.getLocation()).getNeighbors());
-
+        
         if (validated) {
             comment.append("Player " + curr.getPlayer() + " moved to " + curr.getLocation());
             updatePlayerInfo(curr);
+            comment.append("Do you want to take a role?");
+
+            try{
+                synchronized(buttonPanel) {
+                    buttonPanel.wait();
+                }
+            } catch (InterruptedException e) {
+                System.out.println("Waiting for yes/no interrupted");
+            }
+
+            
+
             awaitingMoveDestination = false;
             Location dest = locations.get(curr.getLocation());
             if(!dest.isRevealed()) {
@@ -270,6 +284,16 @@ public class BoardView implements MouseListener {
                 handleMove();
             } else if (e.getSource() == actButton) {
                 handleAct();
+            } else if (e.getSource() == yesButton) {
+
+
+                awaitingRoleSelection = false;
+                synchronized(buttonPanel) {buttonPanel.notify();};
+            } else if (e.getSource() == noButton) {
+                
+                
+                awaitingRoleSelection = false;
+                synchronized(buttonPanel) {buttonPanel.notify();};
             }
         }
     }
