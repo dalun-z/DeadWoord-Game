@@ -5,12 +5,20 @@ package cs345.deadwood;
 
 import java.util.*;
 import java.awt.event.*;
+import java.io.InputStream;
+
 public class Deadwood {
+
+ 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         BoardView boardView = new BoardView();
+
+
+
         ArrayList<Player> players = new ArrayList<Player>();
         ArrayList<Scene> scenes = new ArrayList<Scene>();
+        Player currentPlayer;
         HashMap<String, Location> locations = new HashMap<String, Location>();
         Integer days;
 
@@ -29,10 +37,10 @@ public class Deadwood {
 
         LaunchPage launchPage = new LaunchPage(players, boardView, locations);
         days = players.size() <= 3 ? 3 : 4;
-
-        while (days > 0) {
-            //playyyyyyy the game
-        }
+        currentPlayer = players.get(0);
+        
+        
+        System.out.println(currentPlayer.getPlayer());
 
     }
 }

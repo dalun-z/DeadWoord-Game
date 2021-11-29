@@ -7,17 +7,21 @@ import java.net.URL;
 import java.util.*;
 
 
+
 public class BoardView implements MouseListener {
 
     private JFrame frame;
     private JTextArea comment;
-    private JButton moveButton, passButton, actButton;
     private final int VERTICAL_PADDING = 5;
     private final int HORIZONTAL_PADDING = 5;
     // private Deck deck;
+    JButton moveButton, passButton, actButton;
 
     ArrayList<Player> players;
     HashMap<String, Location> locations;
+    int days;
+    Player currentPlayer;
+    ActionEvent e = null;
     
     public void init(int n, ArrayList<Player> players, HashMap<String, Location> locations) {
         this.players = players;
@@ -52,6 +56,26 @@ public class BoardView implements MouseListener {
                 players.add(new Player(i, "Trailer", 0, 0, diceColor[i], 1));
             }
         }
+
+        if(n <= 3){
+            days = 3;
+        }else{
+            days = 4;
+        }
+
+        currentPlayer = players.get(0);
+
+        // while(days != 0){
+
+        //     for(int i = 0; i < n; i++){
+        //         System.out.println("Player " + players.get(i).getPlayer() + " please select Move or Pass or Act");
+        //        if(e.getSource() == passButton){
+        //            System.out.println("pass button has been clicked!");
+        //        }
+        //     }
+
+        //     days--;
+        // }
 
         URL boardImg = getClass().getClassLoader().getResource("img/board.png");
         JLabel board = new JLabel(new ImageIcon(boardImg.getPath().replace("%20", " ")));
@@ -193,7 +217,7 @@ public class BoardView implements MouseListener {
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
             if (e.getSource() == passButton) {
-                comment.append("Player choose 'Pass'\n");
+                comment.append("Pass\n  " );
             } else if (e.getSource() == moveButton) {
                 comment.append("Player, please selection the neighbor area to go to\n");
             } else if (e.getSource() == actButton) {
