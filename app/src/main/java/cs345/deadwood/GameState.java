@@ -32,6 +32,7 @@ public class GameState {
         boolean valid = false;
         
         for (String d : validDestinations) {
+            System.out.println("Testing destination: " + d);
             Location testDest = locations.get(d);
             Area a = testDest.getCardArea();
             

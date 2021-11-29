@@ -9,7 +9,7 @@ import java.util.*;
 
 public class BoardView implements MouseListener {
 
-    private JFrame frame;
+    public JFrame frame;
     private JTextArea comment;
     private JButton moveButton, passButton, actButton;
     private JPanel controlPanel;
@@ -19,6 +19,7 @@ public class BoardView implements MouseListener {
 
     ArrayList<Player> players;
     HashMap<String, Location> locations;
+    LocationView locView;
     GameState global;
     boolean awaitingMoveDestination = false;
 
@@ -36,20 +37,20 @@ public class BoardView implements MouseListener {
         // Set layout to null, so we can place widgets based on x-y coordinates.
         frame.setLayout(null);
 
-        LocationView locView = new LocationView(frame, locations);
+        locView = new LocationView(frame);
         locView.drawLocations();
 
         String[] diceColor = {"r", "b", "y", "c", "g", "o", "p", "v", "w"};
 
         for(int i = 1; i <= n; i++){
             if(n == 5){
-                players.add(new Player(i, "Trailer", 0, 2, diceColor[i], 1));
+                players.add(new Player(i, "trailer", 0, 2, diceColor[i], 1));
             }else if(n == 6){
-                players.add(new Player(i, "Trailer", 0, 4, diceColor[i], 1));
+                players.add(new Player(i, "trailer", 0, 4, diceColor[i], 1));
             }else if(n==7 || n==8){
-                players.add(new Player(i, "Trailer", 0, 0, diceColor[i], 2));
+                players.add(new Player(i, "trailer", 0, 0, diceColor[i], 2));
             }else{
-                players.add(new Player(i, "Trailer", 0, 0, diceColor[i], 1));
+                players.add(new Player(i, "trailer", 0, 0, diceColor[i], 1));
             }
         }
 
@@ -116,7 +117,7 @@ public class BoardView implements MouseListener {
         return controlPanel;
     }
 
-    private void updateControlPanel(Player player) {
+    private void updatePlayerInfo(Player player) {
         int compIndex = player.getPlayer() - 1;
         controlPanel.remove(compIndex);
         controlPanel.add(showPlayerInfo(player), compIndex);
@@ -228,8 +229,14 @@ public class BoardView implements MouseListener {
 
         if (validated) {
             comment.append("Player " + curr.getPlayer() + " moved to " + curr.getLocation());
-            updateControlPanel(curr);
+            updatePlayerInfo(curr);
             awaitingMoveDestination = false;
+            Location dest = locations.get(curr.getLocation());
+            if(!dest.isRevealed()) {
+                System.out.println("Flipping destination");
+                dest.reveal();
+                locView.revealLocation(curr.getLocation());
+            }
             synchronized(global.boardView) {global.boardView.notify();};
         } else {
             comment.append("Invalid move, please select a valid location's card");

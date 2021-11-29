@@ -300,7 +300,7 @@ public class parsingXML{
         trailerArea.setY(248);
         trailerArea.setW(201);
         trailerArea.setH(194);
-        map.put("Trailer", trailerLoc);
+        map.put("trailer", trailerLoc);
         
 
 
