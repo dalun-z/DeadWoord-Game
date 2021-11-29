@@ -9,7 +9,7 @@ public class Location {
     private ArrayList<Area> takes;
     private int currentTake;
     private ArrayList<ExtraRole> roles;
-    private boolean revealed = false;
+    private boolean revealed = true;
 
     public Location(Area cardArea, ArrayList<String> neighbors, ArrayList<Area> takes, ArrayList<ExtraRole> roles) {
         this.cardArea = cardArea;

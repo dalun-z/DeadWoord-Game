@@ -35,6 +35,7 @@ public class BoardView implements MouseListener {
         // // TODO: set locations for players programmatically (instead of this)
         // SetView trainStation = new SetView(frame);
         // trainStation.drawSet();
+
         LocationView locView = new LocationView(frame, locations);
         locView.drawLocations();
 
@@ -183,6 +184,10 @@ public class BoardView implements MouseListener {
         comment.setPreferredSize(panel.getPreferredSize());
         panel.add(comment);
         return panel;
+    }
+
+    public void update() {
+        
     }
 
     private class ButtonListener implements ActionListener {
