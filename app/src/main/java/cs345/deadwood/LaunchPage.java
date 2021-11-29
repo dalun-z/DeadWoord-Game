@@ -18,11 +18,10 @@ public class LaunchPage implements ActionListener {
     // ArrayList<Player> players;
     // HashMap<String, Location> locations;
     // BoardView bv;
-    GameState global;
+    GameState global = GameState.getInstance();
     int input;
 
-    LaunchPage(GameState global){
-        this.global = global;
+    LaunchPage(){
         // this.players = global.players;
         // this.locations = global.locations;
         // this.bv = global.boardView;
@@ -49,7 +48,7 @@ public class LaunchPage implements ActionListener {
         if(e.getSource() == button){
             input = Integer.parseInt(enterNum.getText());
             frame.dispose();
-            global.boardView.init(input, global);
+            global.boardView.init(input);
             synchronized(this) {
                 this.notify();
             }

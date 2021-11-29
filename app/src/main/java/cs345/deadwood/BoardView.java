@@ -18,8 +18,10 @@ public class BoardView implements MouseListener {
 
     ArrayList<Player> players;
     HashMap<String, Location> locations;
-    
-    public void init(int n, GameState global) {
+    GameState global;
+
+    public void init(int n) {
+        this.global = GameState.getInstance();
         this.players = global.players;
         this.locations = global.locations;
         
@@ -195,11 +197,21 @@ public class BoardView implements MouseListener {
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
             if (e.getSource() == passButton) {
+                comment.setText(null);
                 comment.append("Player choose 'Pass'\n");
+                global.action = "pass";
+                synchronized(global) {global.notify();}
             } else if (e.getSource() == moveButton) {
-                comment.append("Player, please selection the neighbor area to go to\n");
+                comment.setText(null);
+                comment.append("Player "+ global.currentPlayer.getPlayer() +", please selection the neighbor area to go to\n");
+                global.action = "move";
+                synchronized(global) {global.notify();}
+                // System.out.println("Global action: " + global.action);
             } else if (e.getSource() == actButton) {
-                comment.append("Player, please select a role\n");
+                comment.setText(null);
+                comment.append("Player "+ global.currentPlayer.getPlayer() +", please select a role\n");
+                global.action = "act";
+                synchronized(global) {global.notify();}
             }
         }
     }
@@ -208,6 +220,7 @@ public class BoardView implements MouseListener {
     public void mouseClicked(MouseEvent e) {
         // The top bar of the frame is about 30 pixels in height. So to get the x,y values on the board, subtract 30 from the y value.
         System.out.println("Mouse clicked at X = " + e.getX() + ", Y = " + (e.getY() - 30));
+        comment.setText(null);
         comment.append("XY position " + e.getX() + ", " + e.getY() + "\n");
     }
 

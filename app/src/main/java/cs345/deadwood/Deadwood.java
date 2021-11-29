@@ -15,7 +15,7 @@ public class Deadwood {
         // Integer days;
         // Player currentPlayer;
 
-        GameState global = new GameState();
+        GameState global = GameState.getInstance();
 
         parsingXML parser = new parsingXML();
 
@@ -30,7 +30,7 @@ public class Deadwood {
             currentLoc.setScene(global.scenes.get(iter++));
         }
 
-        LaunchPage launchPage = new LaunchPage(global);
+        LaunchPage launchPage = new LaunchPage();
         
         synchronized(launchPage) {
             try {
@@ -47,6 +47,35 @@ public class Deadwood {
         System.out.println("First player: " + global.currentPlayer.getPlayer());
 
         while (global.days > 0) {
+            System.out.println("doing game loop");
+
+            synchronized(global) {
+                try {
+                    global.wait();
+                } catch (InterruptedException e) {
+                    System.out.println("Action await interrupted");
+                }
+            }
+
+            if (global.action == "move") {
+                System.out.println("Player moving");
+                //TODO
+                
+                global.nextPlayer();
+                System.out.println("Current player: " + global.currentPlayer.getPlayer());
+            } else if (global.action == "pass") {
+                System.out.println("Player passed");
+                //TODO
+
+                global.nextPlayer();
+                System.out.println("Current player: " + global.currentPlayer.getPlayer());
+            } else if (global.action == "act") {
+                System.out.println("Player is acting");
+                //TODO
+
+                global.nextPlayer();
+                System.out.println("Current player: " + global.currentPlayer.getPlayer());
+            }
             
         }
     }
