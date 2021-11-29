@@ -60,7 +60,13 @@ public class Deadwood {
             if (global.action == "move") {
                 System.out.println("Player moving");
                 //TODO
-                
+                try {
+                    synchronized(global.boardView) {
+                        global.boardView.wait();
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("Destination selection interrupted");
+                }
 
                 global.nextPlayer();
                 System.out.println("Current player: " + global.currentPlayer.getPlayer());
@@ -77,7 +83,6 @@ public class Deadwood {
                 global.nextPlayer();
                 System.out.println("Current player: " + global.currentPlayer.getPlayer());
             }
-            
         }
     }
 }

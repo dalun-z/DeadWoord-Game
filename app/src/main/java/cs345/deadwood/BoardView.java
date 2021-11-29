@@ -19,7 +19,7 @@ public class BoardView implements MouseListener {
     ArrayList<Player> players;
     HashMap<String, Location> locations;
     GameState global;
-    boolean awaitingLocation = false;
+    boolean awaitingMoveDestination = false;
 
     public void init(int n) {
         this.global = GameState.getInstance();
@@ -188,7 +188,7 @@ public class BoardView implements MouseListener {
 
     public void handlePass() {
         comment.setText(null);
-        comment.append("Player choose 'Pass'\n");
+        comment.append("Player " + global.currentPlayer.getPlayer() + " chose 'Pass'\n");
         global.action = "pass";
         synchronized(global) {global.notify();}
     }
@@ -205,10 +205,14 @@ public class BoardView implements MouseListener {
         for (String loc : global.locations.get(currentLoc).getNeighbors()) {
             comment.append(loc + ", ");
         }
+
         global.action = "move";
+        awaitingMoveDestination = true;
         synchronized(global) {global.notify();}
         // System.out.println("Global action: " + global.action);
     }
+
+    
 
     public void handleAct() {
         comment.setText(null);
@@ -232,12 +236,24 @@ public class BoardView implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // The top bar of the frame is about 30 pixels in height. So to get the x,y values on the board, subtract 30 from the y value.
-        System.out.println("Mouse clicked at X = " + e.getX() + ", Y = " + (e.getY() - 30));
-        comment.setText(null);
-        comment.append("XY position " + e.getX() + ", " + e.getY() + "\n");
+        int x = e.getX();
+        int y = e.getY() - 30;
         
-        if (awaitingLocation) {
-            
+        System.out.println("Mouse clicked at X = " + x + ", Y = " + y);
+        comment.setText(null);
+        comment.append("XY position " + x + ", " + y + "\n");
+        
+        if (awaitingMoveDestination) {
+            System.out.println("Moving player");
+            boolean validated = global.validateMove(x, y, locations.get(global.currentPlayer.getLocation()).getNeighbors());
+
+            if (validated) {
+                comment.append("Player " + global.currentPlayer.getPlayer() + " moved to " + global.currentPlayer.getLocation());
+                awaitingMoveDestination = false;
+                synchronized(global.boardView) {global.boardView.notify();};
+            } else {
+                comment.append("Invalid move, please select a valid location's card");
+            }
         }
     }
 

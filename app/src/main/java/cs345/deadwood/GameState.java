@@ -27,12 +27,22 @@ public class GameState {
         this.currentPlayer = this.players.get(((this.currentPlayer.getPlayer() - 1) + 1) % this.players.size());
     }
 
-    public boolean isValidMove(Location source, Location dest) {
-        for (String d : source.getNeighbors()) {
-            // if ()
+    public boolean validateMove(int x, int y, ArrayList<String> validDestinations) {
+        String destination = currentPlayer.getLocation();
+        boolean valid = false;
+        
+        for (String d : validDestinations) {
+            Location testDest = locations.get(d);
+            Area a = testDest.getCardArea();
+            
+            if (x >= a.getX() && x <= a.getX() + a.getW() && y >= a.getY() && y <= a.getY() + a.getH()) {
+                valid = true;
+                destination = d;
+            }
         }
 
-        return false;
+        currentPlayer.setLocation(destination);
+        return valid;
     }
 
     public void movePlayer(Player p, String l) {
