@@ -35,10 +35,6 @@ public class BoardView implements MouseListener {
         // Set layout to null, so we can place widgets based on x-y coordinates.
         frame.setLayout(null);
 
-        // // TODO: set locations for players programmatically (instead of this)
-        // SetView trainStation = new SetView(frame);
-        // trainStation.drawSet();
-
         LocationView locView = new LocationView(frame, locations);
         locView.drawLocations();
 
@@ -210,11 +206,10 @@ public class BoardView implements MouseListener {
                 
                 System.out.println("All Loaded Locations: " + global.locations.keySet());
                 
-                // comment.append("Possible locations: \n");
-
-                // for (String loc : global.locations.get(currentLoc).getNeighbors()) {
-                //     comment.append(loc + " ");
-                // }
+                comment.append("Possible locations: \n");
+                for (String loc : global.locations.get(currentLoc).getNeighbors()) {
+                    comment.append(loc + ", ");
+                }
                 global.action = "move";
                 synchronized(global) {global.notify();}
                 // System.out.println("Global action: " + global.action);
