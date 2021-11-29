@@ -73,6 +73,8 @@ public class Deadwood {
             } else if (global.action == "pass") {
                 System.out.println("Player passed");
                 //TODO
+                global.currentPlayer.setCash(global.currentPlayer.getCash());
+                global.currentPlayer.setCredit(global.currentPlayer.getCredit());
 
                 global.nextPlayer();
                 System.out.println("Current player: " + global.currentPlayer.getPlayer());

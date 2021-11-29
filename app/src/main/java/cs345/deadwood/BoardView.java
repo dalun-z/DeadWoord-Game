@@ -221,6 +221,8 @@ public class BoardView implements MouseListener {
         // System.out.println("Global action: " + global.action);
     }
 
+    
+
     public void handleMoveSelection(int x, int y) {
         System.out.println("Moving player");
         Player curr = global.currentPlayer;
