@@ -209,7 +209,7 @@ public class BoardView implements MouseListener {
                 comment.append("Player current location: " + currentLoc + "\n");
                 comment.append("Possible locations: \n");
                 for (String loc : global.locations.get(currentLoc).getNeighbors()) {
-                    comment.append(loc + " ");
+                    comment.append(loc + ", ");
                 }
                 global.action = "move";
                 synchronized(global) {global.notify();}

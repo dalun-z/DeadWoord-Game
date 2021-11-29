@@ -161,21 +161,13 @@ public class parsingXML{
 
     public void readBoardData(Document d, HashMap<String, Location> map) {
         Element root = d.getDocumentElement();
-        NodeList board = root.getElementsByTagName("set");
-
-        NodeList trailerList = root.getElementsByTagName("trailer");
-        NodeList officeList = root.getElementsByTagName("office");
-        Node trailer = trailerList.item(0);
-        Node office = officeList.item(0);
-
-        // TODO: process these fuckers ^^
         
+        NodeList board = root.getElementsByTagName("set");
 
         for(int i = 0; i < board.getLength(); i++) {
             Node set = board.item(i);
             String setName = set.getAttributes().getNamedItem("name").getNodeValue();
             // System.out.println("Set name is: " + setName);
-
             Area cardArea = new Area();
             ArrayList<String> neighbors = new ArrayList<String>();
             ArrayList<Area> takes = new ArrayList<Area>();
@@ -291,12 +283,29 @@ public class parsingXML{
                         }
                     }
                 }
-
-                // System.out.println("\n");
             }
             Location loc = new Location(cardArea, neighbors, takes, roles);
             map.put(setName, loc);
             // System.out.println("Added location to map");
         }
+
+        
+        Area trailerArea = new Area();
+        ArrayList<String> neighbors = new ArrayList<String>();
+        Location trailerLoc = new Location(trailerArea, neighbors, null, null);
+        neighbors.add("Main Street");
+        neighbors.add("Saloon");
+        neighbors.add("Hotel");
+        trailerArea.setX(991);
+        trailerArea.setY(248);
+        trailerArea.setW(201);
+        trailerArea.setH(194);
+        map.put("Trailer", trailerLoc);
+        
+
+
+        NodeList officeList = root.getElementsByTagName("office");
+        Node office = officeList.item(0);
+
     }
 }
