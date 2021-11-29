@@ -10,23 +10,23 @@ public class Player {
     */
 
     private int player;
-    private String area;
+    private String location;
     private int cash;
     private int credit;
     private String dice;
     private int rank;
 
-    public Player(int player, String area, int cash, int credit, String dice, int rank){
+    public Player(int player, String location, int cash, int credit, String dice, int rank){
         this.player = player;
-        this.area = area;
+        this.location = location;
         this.cash = cash;
         this.credit = credit;
         this.dice = dice; 
         this.rank = rank;
     }
 
-    public void setArea(String area){
-        this.area = area;
+    public void setLocation(String location){
+        this.location = location;
     }
 
     public void setCash(int cash){
@@ -57,8 +57,8 @@ public class Player {
         return this.credit;
     }
 
-    public String getArea(){
-        return this.area;
+    public String getLocation(){
+        return this.location;
     }
 
     public String getDice(){

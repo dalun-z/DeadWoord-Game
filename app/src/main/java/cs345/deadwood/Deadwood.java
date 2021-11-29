@@ -61,6 +61,7 @@ public class Deadwood {
                 System.out.println("Player moving");
                 //TODO
                 
+
                 global.nextPlayer();
                 System.out.println("Current player: " + global.currentPlayer.getPlayer());
             } else if (global.action == "pass") {

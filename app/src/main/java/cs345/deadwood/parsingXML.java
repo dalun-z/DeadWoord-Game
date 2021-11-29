@@ -162,7 +162,15 @@ public class parsingXML{
     public void readBoardData(Document d, HashMap<String, Location> map) {
         Element root = d.getDocumentElement();
         NodeList board = root.getElementsByTagName("set");
+
+        NodeList trailerList = root.getElementsByTagName("trailer");
+        NodeList officeList = root.getElementsByTagName("office");
+        Node trailer = trailerList.item(0);
+        Node office = officeList.item(0);
+
+        // TODO: process these fuckers ^^
         
+
         for(int i = 0; i < board.getLength(); i++) {
             Node set = board.item(i);
             String setName = set.getAttributes().getNamedItem("name").getNodeValue();
@@ -174,7 +182,7 @@ public class parsingXML{
             ArrayList<ExtraRole> roles = new ArrayList<ExtraRole>();
 
             NodeList nodes = set.getChildNodes();
-            
+
             for (int j = 0; j < nodes.getLength(); j++) {
                 Node subNode = nodes.item(j);
 

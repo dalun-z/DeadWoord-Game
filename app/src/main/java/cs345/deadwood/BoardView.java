@@ -19,6 +19,7 @@ public class BoardView implements MouseListener {
     ArrayList<Player> players;
     HashMap<String, Location> locations;
     GameState global;
+    boolean awaitingLocation = false;
 
     public void init(int n) {
         this.global = GameState.getInstance();
@@ -132,7 +133,7 @@ public class BoardView implements MouseListener {
         panel.add(playerDice);
         panel.add(Box.createRigidArea(new Dimension(HORIZONTAL_PADDING,0))); // Add padding
 
-        JLabel playerLocation = new JLabel(player.getArea());
+        JLabel playerLocation = new JLabel(player.getLocation());
         panel.add(playerLocation);
         panel.add(Box.createRigidArea(new Dimension(HORIZONTAL_PADDING,0))); // Add padding
 
@@ -202,8 +203,14 @@ public class BoardView implements MouseListener {
                 global.action = "pass";
                 synchronized(global) {global.notify();}
             } else if (e.getSource() == moveButton) {
+                String currentLoc = global.currentPlayer.getLocation();
                 comment.setText(null);
-                comment.append("Player "+ global.currentPlayer.getPlayer() +", please selection the neighbor area to go to\n");
+                comment.append("Player "+ global.currentPlayer.getPlayer() +", please selection the neighbor area to go to:\n");
+                comment.append("Player current location: " + currentLoc + "\n");
+                comment.append("Possible locations: \n");
+                for (String loc : global.locations.get(currentLoc).getNeighbors()) {
+                    comment.append(loc + " ");
+                }
                 global.action = "move";
                 synchronized(global) {global.notify();}
                 // System.out.println("Global action: " + global.action);
@@ -222,6 +229,10 @@ public class BoardView implements MouseListener {
         System.out.println("Mouse clicked at X = " + e.getX() + ", Y = " + (e.getY() - 30));
         comment.setText(null);
         comment.append("XY position " + e.getX() + ", " + e.getY() + "\n");
+        
+        if (awaitingLocation) {
+            
+        }
     }
 
     @Override
