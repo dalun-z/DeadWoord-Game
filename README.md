@@ -6,3 +6,19 @@ UML class diagram updated.  Changes include:
 3. Removed `Bank` class
 4. Added proper arrow relationships
 5. Created `Reward` class to differentiate reward types
+
+## Design Patterns
++ Singleton and State pattern
+    * GameState
++ MVC pattern
+    * Model
+        - Area, Location, Player, Role, Scene, GameState
+    * View
+        - BoardView, LocationView
+    * Controller
+        - Deadwood
++ Composite pattern
+    * Role
+        - ExtraRole, StarringRole
++ Adapter pattern
+    * parsingXML

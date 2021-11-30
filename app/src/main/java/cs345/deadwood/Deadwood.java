@@ -62,6 +62,7 @@ public class Deadwood {
             if (global.action == "move") {
                 System.out.println("Player moving");
                 //TODO
+
                 try {
                     synchronized(global.boardView) {
                         global.boardView.wait();
@@ -70,7 +71,7 @@ public class Deadwood {
                     System.out.println("Destination selection interrupted");
                 }
 
-                global.nextPlayer();
+                // global.nextPlayer();
                 System.out.println("Current player: " + global.currentPlayer.getPlayer());
             } else if (global.action == "pass") {
                 System.out.println("Player passed");
@@ -92,9 +93,7 @@ public class Deadwood {
                 System.out.println("Current player: " + global.currentPlayer.getPlayer());
             }
 
-            
-
-            global.days--;
+            // global.days--;
         }
     }
 }

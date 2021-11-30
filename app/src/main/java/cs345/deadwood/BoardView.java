@@ -13,7 +13,7 @@ public class BoardView implements MouseListener {
     private JTextArea comment;
     private JButton moveButton, passButton, actButton, yesButton, noButton;
     private JPanel controlPanel;
-    private JPanel buttonPanel;
+    public JPanel buttonPanel;
     private final int VERTICAL_PADDING = 5;
     private final int HORIZONTAL_PADDING = 5;
     // private Deck deck;
@@ -234,28 +234,28 @@ public class BoardView implements MouseListener {
         // System.out.println("Global action: " + global.action);
     }
 
-    
-
     public void handleMoveSelection(int x, int y) {
         System.out.println("Moving player");
         Player curr = global.currentPlayer;
         boolean validated = global.validateMove(x, y, locations.get(curr.getLocation()).getNeighbors());
         
         if (validated) {
-            comment.append("Player " + curr.getPlayer() + " moved to " + curr.getLocation());
+            comment.append("Player " + curr.getPlayer() + " moved to " + curr.getLocation() + "\n");
             updatePlayerInfo(curr);
-            comment.append("Do you want to take a role?");
-
-            try{
-                synchronized(buttonPanel) {
-                    buttonPanel.wait();
-                }
-            } catch (InterruptedException e) {
-                System.out.println("Waiting for yes/no interrupted");
-            }
-
             
-
+            comment.append("Do you want to take a role?\n");
+            awaitingRoleSelection = true;
+            
+            // global.awaitRoleChoice();
+            
+            // try{
+            //     synchronized(buttonPanel) {
+            //         buttonPanel.wait();
+            //     }
+            // } catch (InterruptedException e) {
+            //     System.out.println("Waiting for yes/no interrupted");
+            // }
+            
             awaitingMoveDestination = false;
             Location dest = locations.get(curr.getLocation());
             if(!dest.isRevealed()) {
@@ -266,6 +266,16 @@ public class BoardView implements MouseListener {
             synchronized(global.boardView) {global.boardView.notify();};
         } else {
             comment.append("Invalid move, please select a valid location's card");
+        }
+    }
+    
+    public void handleRoleSelection(int x, int y, Player p) {
+        System.out.println("Selecting role...");
+        
+        boolean roleSelected = global.validateRoleSelection(x, y, p);
+    
+        if (roleSelected) {
+            System.out.println("Role selected: " + p.getRole().getLine());
         }
     }
 
@@ -285,13 +295,15 @@ public class BoardView implements MouseListener {
             } else if (e.getSource() == actButton) {
                 handleAct();
             } else if (e.getSource() == yesButton) {
-
-
-                awaitingRoleSelection = false;
-                synchronized(buttonPanel) {buttonPanel.notify();};
+                if (awaitingRoleSelection) {
+                    comment.append("Please pick a role\n");
+                    
+                    awaitingRoleSelection = false;
+                    synchronized(buttonPanel) {buttonPanel.notify();};
+                }
             } else if (e.getSource() == noButton) {
                 
-                
+
                 awaitingRoleSelection = false;
                 synchronized(buttonPanel) {buttonPanel.notify();};
             }
@@ -310,6 +322,8 @@ public class BoardView implements MouseListener {
         
         if (awaitingMoveDestination) {
             handleMoveSelection(x, y);
+        } else if (awaitingRoleSelection) {
+            handleRoleSelection(x, y, global.currentPlayer);
         }
     }
 

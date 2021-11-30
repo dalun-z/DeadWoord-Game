@@ -15,6 +15,7 @@ public class Player {
     private int credit;
     private String dice;
     private int rank;
+    private Role role = null;
 
     public Player(int player, String location, int cash, int credit, String dice, int rank){
         this.player = player;
@@ -41,6 +42,10 @@ public class Player {
         this.rank = rank;
     }
 
+    public void setRole(Role r) {
+        this.role = r;
+    }
+
     public int getPlayer(){
         return this.player;
     }
@@ -63,6 +68,10 @@ public class Player {
 
     public String getDice(){
         return "dice_" + this.dice + this.rank + ".png";
+    }
+
+    public Role getRole() {
+        return this.role;
     }
 
     
